@@ -4,9 +4,7 @@ import { outsideGrid } from './grid.js';
 
 let lastRenderTime = 0;
 let gameOver = false;
-let score = 0;
 const gameBoard = document.getElementById('game-board');
-const scoreElement = document.getElementById('score');
 
 function main(currentTime) {
   if (gameOver) {
@@ -21,7 +19,6 @@ function main(currentTime) {
 
   if (secondsSinceLastRender < 1 / SNAKE_SPEED) return;
 
-  console.log('Render');
   lastRenderTime = currentTime;
 
   update();
@@ -34,7 +31,6 @@ function update() {
   updateSnake();
   updateFood();
   checkDeath();
-  updateScore();
 }
 
 function draw() {
@@ -45,19 +41,5 @@ function draw() {
 
 function checkDeath() {
   gameOver = outsideGrid(getSnakeHead()) || snakeIntersection();
-}
-
-function updateScore() {
-  console.log('updateScore called');
-  console.log('Current food position:', food);
-  console.log('Current snake head position:', getSnakeHead());
-  if (onSnake(food)) {
-    console.log('Snake is on food');
-    score++;
-    console.log(`Score updated: ${score}`);
-    scoreElement.textContent = `Score: ${score}`;
-  } else {
-    console.log('Snake is not on food');
-  }
 }
 

@@ -1,7 +1,7 @@
 import { getInputDirection } from './input.js';
 
 let snakeBody = [{ x: 11, y: 11 }];
-const SNAKE_SPEED = 5;
+const SNAKE_SPEED = 10;
 let newSegments = 0;
 
 export function update() {
@@ -15,11 +15,15 @@ export function update() {
 }
 
 export function draw(gameBoard) {
-  snakeBody.forEach(segment => {
+  snakeBody.forEach((segment, index) => {
     const snakeElement = document.createElement('div');
     snakeElement.style.gridRowStart = segment.y;
     snakeElement.style.gridColumnStart = segment.x;
-    snakeElement.classList.add('snake');
+    if (index === 0) {
+      snakeElement.classList.add('snake-head');
+    } else {
+      snakeElement.classList.add('snake-body');
+    }
     gameBoard.appendChild(snakeElement);
   });
 }
@@ -29,14 +33,9 @@ export function expandSnake(amount) {
 }
 
 export function onSnake(position, { ignoreHead = false } = {}) {
-  console.log('Checking if on snake:', position);
   return snakeBody.some((segment, index) => {
     if (ignoreHead && index === 0) return false;
-    const isOnSnake = equalPositions(segment, position);
-    if (isOnSnake) {
-      console.log('Snake is on position:', position);
-    }
-    return isOnSnake;
+    return equalPositions(segment, position);
   });
 }
 

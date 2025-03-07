@@ -25,9 +25,21 @@ background-color: black;
 .food {
     background-color: red;
     border: .25vmin solid black;
+    border-radius: 50%;
 }
 
 #score {
     font-size: 24px;
     margin-bottom: 10px;
+}
+
+.snake-head {
+  background-color: green;
+  border: .25vmin solid black;
+}
+
+
+.snake-body {
+  background-color: lightgreen;
+  border: .25vmin solid black;
 }
